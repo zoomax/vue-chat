@@ -32,13 +32,11 @@ export default {
           name: this.chatter,
           timestamp: Date.now()
         };
-        console.log(msg);
+        this.message = null;
         db.collection("messages")
           .add(msg)
-          .then((snapshot, options) => {
-            this.message = null;
-          })
-          .catch(err => console.log(err.message));
+          .then((snapshot, options) => {})
+          .catch(err => err);
       } else {
         this.feedback = "please type a message first ";
       }

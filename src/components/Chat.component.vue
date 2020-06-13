@@ -3,7 +3,7 @@
     <h2 class="teal-text">Chat</h2>
     <div class="card">
       <div class="card-content">
-        <ul class="messages">
+        <ul class="messages" v-chat-scroll>
           <li v-for="(message , index) in messages" :key="index">
             <span class="teal-text">{{message.name}}</span>
             <span class="grey-text text-darken-3">{{message.content}}</span>
@@ -39,7 +39,6 @@ export default {
     ref.onSnapshot(snapshot => {
       snapshot.docChanges().forEach(change => {
         if (change.type === "added") {
-          console.log(change.doc);
           this.messages.push({
             id: change.doc.id,
             content: change.doc.data().content,
@@ -56,7 +55,7 @@ export default {
 li {
   text-align: left;
   margin-top: 20px;
-  border-bottom: rgb(202, 202, 202) solid 1px;
+  border-bottom: rgba(202, 202, 202, 0.445) solid 1px;
 }
 li span {
   font-size: 16px;
@@ -64,5 +63,19 @@ li span {
 span.time {
   display: block;
   font-size: 14px;
+}
+.messages {
+  max-height: 300px;
+  overflow: auto;
+}
+
+.messages::-webkit-scrollbar {
+  width: 3px;
+}
+.messages::-webkit-scrollbar-track {
+  background: #ddd;
+}
+.messages::-webkit-scrollbar-thumb {
+  background: #aaa;
 }
 </style>
